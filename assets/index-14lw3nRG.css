@@ -1,0 +1,1 @@
+@media (width<=768px){.sidebar-container{z-index:1000;width:200px;height:100%;transition:all .3s;position:fixed;left:-200px}.sidebar-container.active{left:0}.layout-principal{flex-direction:column}}
