@@ -7,6 +7,15 @@ import imgWhatsapp from './assets/whatsapp.jpeg';
 // ... restante do código ...
 
 const Home = ({ aoClicarLogin }) => {
+  const cardStyle = {
+    backgroundColor: '#16243d', // Azul um pouco mais claro que o fundo
+    borderRadius: '15px',
+    border: '1px solid #2d3748',
+    padding: '30px',
+    textAlign: 'center',
+    transition: 'transform 0.2s',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+  };
   return (
     <div style={{
       minHeight: '100vh',
@@ -39,59 +48,99 @@ const Home = ({ aoClicarLogin }) => {
       {/* Cards de Benefícios */}
       <div style={{
         display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-        gap: '20px',
+        flexWrap: 'wrap',   // ISSO AQUI faz os cards irem para baixo no celular
         justifyContent: 'center',
-        width: '100%',
-        maxWidth: '1100px',
-        marginBottom: '50px'
+        gap: '20px',
+        padding: '20px'
+        
       }}>
-        <div style={{ ...cardStyle, flex: 1 }}>
+        {/* Card de Rapidez */}
+        <div style={{ ...cardStyle, flex: '1 1 300px', maxWidth: '350px' }}>
           <h3 style={{ color: '#38bdf8', marginBottom: '15px' }}>⚡ Rapidez</h3>
           <p style={{ textAlign: 'justify', lineHeight: '1.6', margin: 0 }}>
             Entregamos seus cálculos em tempo recorde para cumprir seus prazos.
           </p>
         </div>
 
-        <div style={{ ...cardStyle, flex: 1 }}>
+        {/* Card de Precisão */}
+        <div style={{ ...cardStyle, flex: '1 1 300px', maxWidth: '350px' }}>
           <h3 style={{ color: '#38bdf8', marginBottom: '15px' }}>🎯 Precisão</h3>
           <p style={{ textAlign: 'justify', lineHeight: '1.6', margin: 0 }}>
             Cálculos revisados e prontos para anexar ao PJE.
           </p>
         </div>
 
-        <div style={{ ...cardStyle, flex: 1 }}>
+        {/* Card de Fidelidade */}
+        <div style={{ ...cardStyle, flex: '1 1 300px', maxWidth: '350px' }}>
           <h3 style={{ color: '#38bdf8', marginBottom: '15px' }}>⭐ Fidelidade</h3>
           <p style={{ textAlign: 'justify', lineHeight: '1.6', margin: 0 }}>
-            Fidelidade 5+1: Ganhe 1 cálculo bônus a cada 5 pedidos realizados
+            Fidelidade 5+1: Ganhe 1 cálculo bônus a cada 5 pedidos realizados.
           </p>
         </div>
       </div>
+      <div style={{ marginTop: '60px', width: '100%', maxWidth: '800px' }}>
+        <h2 style={{ color: '#38bdf8', marginBottom: '30px' }}>Cálculos que realizamos</h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr',
+          gap: '15px',
+          textAlign: 'left'
+        }}>
+          {['Liquidação da Inicial', 'Liquidação de Sentença', 'Impugnação dos Cálculos', 'verbas Rescisórias'].map((servico) => (
+            <div key={servico} style={{ padding: '10px', borderLeft: '3px solid #38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.05)' }}>
+              {servico}
+            </div>
+          ))}
+        </div>
+      </div>
 
-      {/* Botão de Chamada para Ação */}
-      <button
+      {/* Seção do Botão com separação moderna */}
+<div style={{ 
+    marginTop: '60px', // Aumenta o espaço entre a lista e o botão
+    textAlign: 'center', // Garante que ele fique centralizado
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+}}>
+    {/* Linha Divisória Sutil (Opcional, dá o toque moderno) */}
+    <div style={{ 
+        width: '60px', 
+        height: '4px', 
+        backgroundColor: '#38bdf8', 
+        borderRadius: '2px',
+        marginBottom: '40px',
+        opacity: '0.5'
+    }}></div>
+
+    <button
         onClick={aoClicarLogin}
         style={{
-          padding: '16px 40px',
-          fontSize: '1.1rem',
-          fontWeight: 'bold',
-          backgroundColor: '#38bdf8',
-          color: '#0f172a',
-          border: 'none',
-          borderRadius: '50px',
-          cursor: 'pointer',
-          boxShadow: '0 10px 25px -5px rgba(56, 189, 248, 0.4)',
-          transition: 'transform 0.2s'
+            padding: '16px 40px',
+            fontSize: '1.1rem',
+            fontWeight: 'bold',
+            backgroundColor: '#38bdf8',
+            color: '#0f172a',
+            border: 'none',
+            borderRadius: '50px',
+            cursor: 'pointer',
+            boxShadow: '0 10px 25px -5px rgba(56, 189, 248, 0.4)',
+            transition: 'transform 0.2s, box-shadow 0.2s',
         }}
-        onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-        onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-      >
+        onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 15px 30px -5px rgba(56, 189, 248, 0.6)';
+        }}
+        onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(56, 189, 248, 0.4)';
+        }}
+    >
         Solicite seu cálculo →
-      </button>
+    </button>
+</div>
 
       <footer style={{ marginTop: '80px', color: '#64748b', fontSize: '0.8rem' }}>
-        © 2024 Paulo Lima Cálculos Judiciais. Todos os direitos reservados.
+        © 2026 Advcalculos Cálculos Judiciais. Todos os direitos reservados.
       </footer>
 
       {/* Redes Sociais Formais - Rodapé Esquerdo flutuante */}
@@ -150,7 +199,7 @@ const Home = ({ aoClicarLogin }) => {
 
         {/* Botão Instagram */}
         <a
-          href="https://instagram.com/pje_calc_pro"
+          href="https://www.instagram.com/advcalculos/"
           target="_blank"
           rel="noopener noreferrer"
           style={{

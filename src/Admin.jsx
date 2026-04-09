@@ -15,7 +15,7 @@ const Admin = () => {
   };
 
   // Filtra a lista antes de mostrar na tela
-  
+
   const calculosFiltrados = (todosCalculos || []).filter(c => {
     if (filtro === 'todos') return true;
     if (!c.status) return false;
@@ -32,6 +32,14 @@ const Admin = () => {
       .eq('id', id);
 
     if (!error) carregarTodosOsCalculos(); // Atualiza a lista na hora
+  };
+  const alterarStatusOrcamento = async (id, novoStatus) => {
+    const { error } = await supabase
+      .from('calculos')
+      .update({ status_orcamento: novoStatus })
+      .eq('id', id);
+
+    if (!error) carregarTodosOsCalculos(); // Recarrega a lista igual a função de cima
   };
 
   useEffect(() => {
@@ -54,20 +62,36 @@ const Admin = () => {
             <th style={{ padding: '15px' }}>Processo</th>
             <th style={{ padding: '15px' }}>Status Atual</th>
             <th style={{ padding: '15px' }}>Ações</th>
+            <th style={{ padding: '15px', textAlign: 'left' }}>Orçamento</th>
           </tr>
         </thead>
         <tbody>
           {calculosFiltrados.map((c) => (
             <tr key={c.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '15px' }}>{c.numero_processo}</td>
+
+              {/* COLUNA 1: PROCESSO */}
+              <td style={{ padding: '15px' }}>
+                <div style={{ fontWeight: 'bold' }}>{c.numero_processo}</div>
+                {/* COLE O CÓDIGO AQUI ABAIXO */}
+                <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                  {c.tipo_calculo || 'Tipo não informado'}
+                </div>
+              </td>
+
+              {/* COLUNA 2: STATUS ATUAL */}
               <td style={{ padding: '15px' }}>
                 <span style={{
                   backgroundColor: c.status === 'concluído' ? '#dcfce7' : '#fef9c3',
-                  padding: '5px 10px', borderRadius: '5px', fontSize: '0.8rem'
+                  padding: '5px 10px',
+                  borderRadius: '5px',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold'
                 }}>
                   {c.status.toUpperCase()}
                 </span>
               </td>
+
+              {/* COLUNA 3: AÇÕES (BOTÕES) */}
               <td style={{ padding: '15px' }}>
                 {c.status === 'pendente' ? (
                   <button
@@ -85,6 +109,28 @@ const Admin = () => {
                   </button>
                 )}
               </td>
+
+              {/* COLUNA 4: ORÇAMENTO (O SELETOR) */}
+              <td style={{ padding: '15px' }}>
+                <select
+                  value={c.status_orcamento || 'Orçamento Enviado'}
+                  onChange={(e) => alterarStatusOrcamento(c.id, e.target.value)}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '6px',
+                    border: '1px solid #cbd5e1',
+                    backgroundColor: c.status_orcamento === 'Orçamento Aprovado' ? '#dcfce7' : '#fff',
+                    cursor: 'pointer',
+                    fontSize: '0.85rem',
+                    width: '100%'
+                  }}
+                >
+                  <option value="Orçamento Enviado">Orçamento Enviado</option>
+                  <option value="Aguardando Aprovação">Aguardando Aprovação</option>
+                  <option value="Orçamento Aprovado">Orçamento Aprovado</option>
+                </select>
+              </td>
+
             </tr>
           ))}
         </tbody>

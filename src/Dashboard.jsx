@@ -9,6 +9,7 @@ const Dashboard = ({ session }) => {
     const [processo, setProcesso] = useState('');
     const [prazo, setPrazo] = useState('');
     const [totalCalculos, setTotalCalculos] = useState(0); // Para guardar a contagem
+    const [tipoSelecionado, setTipoSelecionado] = useState('');
 
     // Função que busca no banco quantos cálculos o advogado já pediu
     const buscarContagem = async () => {
@@ -49,8 +50,10 @@ const Dashboard = ({ session }) => {
                 .insert([{
                     numero_processo: processo,
                     prazo_fatal: prazo,
+                    tipo_calculo: tipoSelecionado, // Certifique-se de que o nome da variável é este
                     user_id: session.user.id,
-                    status: 'pendente'
+                    status: 'pendente',
+                    status_orcamento: 'Orçamento Enviado'
                 }]);
 
             if (error) {
@@ -65,6 +68,7 @@ const Dashboard = ({ session }) => {
             // 3. Tenta enviar o e-mail (opcional, não trava o resto se falhar)
             const templateParams = {
                 numero_processo: processo,
+                tipo_calculo: tipoSelecionado,
                 prazo: prazo,
                 email_cliente: session.user.email,
             };
@@ -74,6 +78,7 @@ const Dashboard = ({ session }) => {
 
             // 4. ATUALIZA TUDO NA TELA
             setProcesso('');
+            setTipoSelecionado('');
             setPrazo('');
             await buscarContagem();   // Atualiza o contador de estrelas
             await carregarHistorico(); // Atualiza a tabela abaixo
@@ -101,9 +106,18 @@ const Dashboard = ({ session }) => {
     };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f3f4f6', fontFamily: 'sans-serif' }}>
+        <div style={{
+            display: 'flex',
+            flexDirection: window.innerWidth < 768 ? 'column' : 'row', // Se for celular, vira coluna
+            minHeight: '100vh',
+            backgroundColor: '#f3f4f6',
+            fontFamily: 'sans-serif'
+        }}>
             {/* Sidebar */}
-            <nav style={{ width: '260px', backgroundColor: '#1e293b', color: 'white', padding: '30px 20px' }}>
+            <nav style={{
+                width: window.innerWidth < 768 ? '100%' : '260px', backgroundColor: '#1e293b', color: 'white',
+                padding: '30px 20px', boxSizing: 'border-box'
+            }}>
                 <h2 style={{ fontSize: '1.2rem', marginBottom: '40px', color: '#60a5fa' }}><img src="./logo-pje.png" alt="" /></h2>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     <li style={{ padding: '12px 0', borderBottom: '1px solid #334155', cursor: 'pointer' }} onClick={() => setAbaAtiva('novo')}>📊 Novo Pedido</li>
@@ -114,7 +128,11 @@ const Dashboard = ({ session }) => {
             </nav>
 
             {/* Main Content */}
-            <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
+            <main style={{
+                flex: 1,
+                padding: window.innerWidth < 768 ? '20px' : '40px', // Menos padding no celular
+                overflowY: 'auto'
+            }}>
                 {/* ABA: NOVO PEDIDO */}
                 {abaAtiva === 'novo' && (
                     <>
@@ -140,6 +158,28 @@ const Dashboard = ({ session }) => {
                             <div style={{ marginBottom: '15px' }}>
                                 <label style={{ display: 'block', marginBottom: '5px' }}>Número do Processo</label>
                                 <input type="text" value={processo} onChange={(e) => setProcesso(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ccc' }} />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label style={{ display: 'block', marginBottom: '5px' }}>Tipo de Cálculo</label>
+                                <select
+                                    value={tipoSelecionado}
+                                    onChange={(e) => setTipoSelecionado(e.target.value)}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px',
+                                        borderRadius: '6px',
+                                        border: '1px solid #ccc',
+                                        backgroundColor: 'white'
+                                    }}
+                                >
+                                    <option value="">Selecione o tipo...</option>
+                                    <option value="Liquidação da Inicial">Liquidação da Inicial</option>
+                                    <option value="Liquidação da Sentença">Liquidação da Sentença</option>
+                                    <option value="Impugnação dos Cálculos">Impugnação dos Cálculos</option>
+                                    <option value="Verbas Rescisórias">Verbas Rescisórias</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
                             </div>
                             <div style={{ marginBottom: '20px' }}>
                                 <label style={{ display: 'block', marginBottom: '5px' }}>Prazo Fatal</label>
@@ -167,41 +207,86 @@ const Dashboard = ({ session }) => {
 
                 {/* ABA: MEUS CÁLCULOS */}
                 {abaAtiva === 'meus' && (
-                    <section style={{ backgroundColor: 'white', padding: '30px', borderRadius: '12px' }}>
+                    <section style={{
+                        backgroundColor: 'white',
+                        padding: window.innerWidth < 768 ? '15px' : '30px',
+                        borderRadius: '12px'
+                    }}>
                         <h2 style={{ marginBottom: '20px' }}>Meus Cálculos</h2>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr style={{ textAlign: 'left', borderBottom: '2px solid #f1f5f9' }}>
-                                    <th style={{ padding: '12px' }}>Processo</th>
-                                    <th style={{ padding: '12px' }}>Prazo</th>
-                                    <th style={{ padding: '12px' }}>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {meusCalculos.map((item) => (
-                                    <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                                        <td style={{ padding: '12px' }}>{item.numero_processo}</td>
-                                        <td style={{ padding: '12px' }}>{new Date(item.prazo_fatal).toLocaleDateString('pt-BR')}</td>
-                                        <td style={{ padding: '12px' }}>
-                                            <span style={{
-                                                backgroundColor: item.status === 'concluído' ? '#dcfce7' : '#fef9c3',
-                                                color: item.status === 'concluído' ? '#166534' : '#854d0e',
-                                                padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold'
-                                            }}>
-                                                {item.status.toUpperCase()}
-                                            </span>
-                                        </td>
+
+                        <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                            <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse' }}>
+                                <thead>
+                                    <tr style={{ textAlign: 'left', borderBottom: '2px solid #f1f5f9' }}>
+                                        <th style={{ padding: '12px' }}>Processo</th>
+                                        <th style={{ padding: '12px' }}>Prazo</th>
+                                        <th style={{ padding: '12px' }}>Orçamento</th> {/* <--- ADICIONE ESTA LINHA */}
+                                        <th style={{ padding: '12px' }}>Status</th>
                                     </tr>
-                                ))}
-                                {meusCalculos.length === 0 && (
-                                    <tr><td colSpan="3" style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>Nenhuma solicitação encontrada.</td></tr>
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {meusCalculos.length > 0 ? (
+                                        meusCalculos.map((item) => (
+                                            <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+
+                                                {/* COLUNA DO PROCESSO + TIPO DE CÁLCULO */}
+                                                <td style={{ padding: '12px', wordBreak: 'break-all', maxWidth: '200px' }}>
+                                                    <div style={{ fontWeight: 'bold', color: '#1e293b' }}>
+                                                        {item.numero_processo}
+                                                    </div>
+                                                    {/* O que tinha sumido é isso aqui: */}
+                                                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '4px' }}>
+                                                        {item.tipo_calculo || 'Tipo não especificado'}
+                                                    </div>
+                                                </td>
+
+                                                {/* COLUNA DO PRAZO */}
+                                                <td style={{ padding: '12px' }}>
+                                                    {item.prazo_fatal ? new Date(item.prazo_fatal).toLocaleDateString('pt-BR') : '---'}
+                                                </td>
+
+                                                {/* COLUNA DO ORÇAMENTO */}
+                                                <td style={{ padding: '12px' }}>
+                                                    <span style={{
+                                                        color: item.status_orcamento === 'Orçamento Aprovado' ? '#166534' : '#1e293b',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '0.85rem'
+                                                    }}>
+                                                        {item.status_orcamento || 'Orçamento Enviado'}
+                                                    </span>
+                                                </td>
+
+                                                {/* COLUNA DO STATUS FINAL */}
+                                                <td style={{ padding: '12px' }}>
+                                                    <span style={{
+                                                        backgroundColor: item.status === 'concluído' ? '#dcfce7' : '#fef9c3',
+                                                        color: item.status === 'concluído' ? '#166534' : '#854d0e',
+                                                        padding: '4px 8px',
+                                                        borderRadius: '4px',
+                                                        fontSize: '0.8rem',
+                                                        fontWeight: '500'
+                                                    }}>
+                                                        {(item.status || 'pendente').toUpperCase()}
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3" style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>
+                                                Nenhuma solicitação encontrada.
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 )}
             </main>
-        </div >
+        </div>
     );
-}
+};
+
 export default Dashboard;

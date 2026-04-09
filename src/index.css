@@ -1,0 +1,20 @@
+/* No seu arquivo CSS */
+@media (max-width: 768px) {
+  .sidebar-container { 
+    position: fixed; /* Faz ela flutuar */
+    z-index: 1000;
+    width: 200px;
+    height: 100%;
+    left: -200px; /* Esconde para fora da tela */
+    transition: 0.3s;
+  }
+
+  .sidebar-container.active {
+    left: 0; /* Mostra quando você clicar em um botão (precisaria de um estado) */
+  }
+  
+  /* Se quiser apenas que ela ocupe menos espaço ou fique no topo: */
+  .layout-principal {
+    flex-direction: column; /* Coloca a sidebar em cima e o conteúdo embaixo */
+  }
+}
