@@ -6,7 +6,7 @@ import imgWhatsapp from './assets/whatsapp.jpeg';
 
 // ... restante do código ...
 
-const Home = ({ aoClicarLogin }) => {
+const Home = ({ aoClicarLogin, aoClicarExemplos }) => {
   const cardStyle = {
     backgroundColor: '#16243d', // Azul um pouco mais claro que o fundo
     borderRadius: '15px',
@@ -52,7 +52,7 @@ const Home = ({ aoClicarLogin }) => {
         justifyContent: 'center',
         gap: '20px',
         padding: '20px'
-        
+
       }}>
         {/* Card de Rapidez */}
         <div style={{ ...cardStyle, flex: '1 1 300px', maxWidth: '350px' }}>
@@ -95,26 +95,26 @@ const Home = ({ aoClicarLogin }) => {
       </div>
 
       {/* Seção do Botão com separação moderna */}
-<div style={{ 
-    marginTop: '60px', // Aumenta o espaço entre a lista e o botão
-    textAlign: 'center', // Garante que ele fique centralizado
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-}}>
-    {/* Linha Divisória Sutil (Opcional, dá o toque moderno) */}
-    <div style={{ 
-        width: '60px', 
-        height: '4px', 
-        backgroundColor: '#38bdf8', 
-        borderRadius: '2px',
-        marginBottom: '40px',
-        opacity: '0.5'
-    }}></div>
+      <div style={{
+        marginTop: '60px', // Aumenta o espaço entre a lista e o botão
+        textAlign: 'center', // Garante que ele fique centralizado
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}>
+        {/* Linha Divisória Sutil (Opcional, dá o toque moderno) */}
+        <div style={{
+          width: '60px',
+          height: '4px',
+          backgroundColor: '#38bdf8',
+          borderRadius: '2px',
+          marginBottom: '40px',
+          opacity: '0.5'
+        }}></div>
 
-    <button
-        onClick={aoClicarLogin}
-        style={{
+        <button
+          onClick={aoClicarLogin}
+          style={{
             padding: '16px 40px',
             fontSize: '1.1rem',
             fontWeight: 'bold',
@@ -125,21 +125,35 @@ const Home = ({ aoClicarLogin }) => {
             cursor: 'pointer',
             boxShadow: '0 10px 25px -5px rgba(56, 189, 248, 0.4)',
             transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-        onMouseOver={(e) => {
+          }}
+          onMouseOver={(e) => {
             e.currentTarget.style.transform = 'scale(1.05)';
             e.currentTarget.style.boxShadow = '0 15px 30px -5px rgba(56, 189, 248, 0.6)';
-        }}
-        onMouseOut={(e) => {
+          }}
+          onMouseOut={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
             e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(56, 189, 248, 0.4)';
-        }}
-    >
-        Solicite seu cálculo →
-    </button>
-</div>
+          }}
+        >
+          Solicite seu cálculo →
+        </button>
+        {/* BOTÃO DE EXEMPLOS - FORA DO BOTÃO PRINCIPAL */}
+        <div style={{ marginTop: '20px' }}>
+          <span
+            onClick={aoClicarExemplos}
+            style={{
+              color: '#38bdf8',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              fontSize: '0.9rem'
+            }}
+          >
+            Ver exemplos de cálculos realizados
+          </span>
+        </div>
+      </div>
 
-      <footer style={{ marginTop: '80px', color: '#64748b', fontSize: '0.8rem' }}>
+      <footer style={{ marginTop: '20px', color: '#64748b', fontSize: '0.8rem' }}>
         © 2026 Advcalculos Cálculos Judiciais. Todos os direitos reservados.
       </footer>
 
@@ -196,7 +210,6 @@ const Home = ({ aoClicarLogin }) => {
             }}
           />
         </a>
-// teste de envio
         {/* Botão Instagram */}
         <a
           href="https://www.instagram.com/advcalculos/"
