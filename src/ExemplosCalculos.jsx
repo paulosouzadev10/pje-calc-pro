@@ -4,32 +4,32 @@ const CentralExemplos = () => {
   const exemplos = [
     { 
       id: 1, 
-      titulo: "Cálculo de Horas Extras", 
-      arquivo: "Cálculo de Horas Extras.pdf", 
+      titulo: "calculo_de_horas_extras", 
+      arquivo: "calculo_de_horas_extras.pdf", 
       detalhes: "Modelo com integração de DSR e reflexos em verbas rescisórias." 
     },
     { 
       id: 2, 
-      titulo: "Adicional de Insalubridade", 
-      arquivo: "Adicional de Insalubridade.pdf", 
+      titulo: "adicional_de_insalubridade", 
+      arquivo: "adicional_de_insalubridade.pdf", 
       detalhes: "Exemplo completo de inicial com juros e correção monetária." 
     },
     { 
       id: 3, 
-      titulo: "Férias", 
-      arquivo: "Férias.pdf", 
+      titulo: "ferias", 
+      arquivo: "ferias.pdf", 
       detalhes: "Cálculo focado em férias vencidas com acréscimo de 1/3." 
     },
     { 
       id: 4, 
-      titulo: "Verbas Rescisórias", 
-      arquivo: "Verbas Rescisórias.pdf", 
+      titulo: "verbas_rescisorias", 
+      arquivo: "verbas_rescisorias.pdf", 
       detalhes: "Modelo de TRCT calculado com multas do Art. 467 e 477." 
     },
     { 
       id: 5, 
-      titulo: "13º Salário Proporcional", 
-      arquivo: "13º Salário Proporcional.pdf", 
+      titulo: "13_salario", 
+      arquivo: "13_salario.pdf", 
       detalhes: "Apuração de 13º salário proporcional com base em período de trabalho." 
     },
   ];

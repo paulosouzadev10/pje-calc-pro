@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/react-refresh'
 
 export default defineConfig({
   plugins: [react()],
-  base: './', // Isso diz ao Vite: "use caminhos relativos ao arquivo atual"
+  base: '/pje-calc-pro/', // Adicione esta linha com o nome do seu repositório no GitHub
 })
