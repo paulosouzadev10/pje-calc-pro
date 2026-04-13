@@ -11,25 +11,25 @@ const CentralExemplos = () => {
     { 
       id: 2, 
       titulo: "Adicional de Insalubridade", 
-      arquivo: "exemplo_Insalubridade.pdf", 
+      arquivo: "Adicional de Insalubridade.pdf", 
       detalhes: "Exemplo completo de inicial com juros e correção monetária." 
     },
     { 
       id: 3, 
-      titulo: "Férias + 1/3", 
-      arquivo: "exemplo_ferias.pdf", 
+      titulo: "Férias", 
+      arquivo: "Férias.pdf", 
       detalhes: "Cálculo focado em férias vencidas com acréscimo de 1/3." 
     },
     { 
       id: 4, 
       titulo: "Verbas Rescisórias", 
-      arquivo: "exemplo_rescisao.pdf", 
+      arquivo: "Verbas Rescisórias.pdf", 
       detalhes: "Modelo de TRCT calculado com multas do Art. 467 e 477." 
     },
     { 
       id: 5, 
       titulo: "13º Salário Proporcional", 
-      arquivo: "exemplo_13salario.pdf", 
+      arquivo: "13º Salário Proporcional.pdf", 
       detalhes: "Apuração de 13º salário proporcional com base em período de trabalho." 
     },
   ];
