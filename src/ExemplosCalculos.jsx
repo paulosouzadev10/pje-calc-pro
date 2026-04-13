@@ -10,15 +10,15 @@ const CentralExemplos = () => {
     },
     { 
       id: 2, 
-      titulo: "Liquidação de Sentença", 
-      arquivo: "exemplo_liquidacao.pdf", 
+      titulo: "Adicional de Insalubridade", 
+      arquivo: "exemplo_Insalubridade.pdf", 
       detalhes: "Exemplo completo de inicial com juros e correção monetária." 
     },
     { 
       id: 3, 
-      titulo: "Adicional de Periculosidade", 
-      arquivo: "exemplo_periculosidade.pdf", 
-      detalhes: "Cálculo focado em periculosidade com base de cálculo variada." 
+      titulo: "Férias + 1/3", 
+      arquivo: "exemplo_ferias.pdf", 
+      detalhes: "Cálculo focado em férias vencidas com acréscimo de 1/3." 
     },
     { 
       id: 4, 
@@ -28,9 +28,9 @@ const CentralExemplos = () => {
     },
     { 
       id: 5, 
-      titulo: "Cálculo de FGTS", 
-      arquivo: "exemplo_fgts.pdf", 
-      detalhes: "Apuração de depósitos não realizados com atualização pela TR/IPCA-E." 
+      titulo: "13º Salário Proporcional", 
+      arquivo: "exemplo_13salario.pdf", 
+      detalhes: "Apuração de 13º salário proporcional com base em período de trabalho." 
     },
   ];
 

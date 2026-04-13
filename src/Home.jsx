@@ -86,7 +86,7 @@ const Home = ({ aoClicarLogin, aoClicarExemplos }) => {
           gap: '15px',
           textAlign: 'left'
         }}>
-          {['Liquidação da Inicial', 'Liquidação de Sentença', 'Impugnação dos Cálculos', 'verbas Rescisórias'].map((servico) => (
+          {['Liquidação da Inicial', 'Liquidação de Sentença', 'Impugnação dos Cálculos', 'Verbas Rescisórias'].map((servico) => (
             <div key={servico} style={{ padding: '10px', borderLeft: '3px solid #38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.05)' }}>
               {servico}
             </div>
