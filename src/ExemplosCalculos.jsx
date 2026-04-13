@@ -5,7 +5,7 @@ const CentralExemplos = () => {
     { 
       id: 1, 
       titulo: "Cálculo de Horas Extras", 
-      arquivo: "exemplo_horas_extras.pdf", 
+      arquivo: "Cálculo de Horas Extras.pdf", 
       detalhes: "Modelo com integração de DSR e reflexos em verbas rescisórias." 
     },
     { 
