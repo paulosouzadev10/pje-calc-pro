@@ -2,35 +2,35 @@ import React from 'react';
 // Se não tiver ícones instalados, usaremos emojis que funcionam em qualquer lugar
 const CentralExemplos = () => {
   const exemplos = [
-    { 
-      id: 1, 
-      titulo: "calculo_de_horas_extras", 
-      arquivo: "calculo_de_horas_extras.pdf", 
-      detalhes: "Modelo com integração de DSR e reflexos em verbas rescisórias." 
+    {
+      id: 1,
+      titulo: "calculo_de_horas_extras",
+      arquivo: "calculo_de_horas_extras.pdf",
+      detalhes: "Modelo com integração de DSR e reflexos em verbas rescisórias."
     },
-    { 
-      id: 2, 
-      titulo: "adicional_de_insalubridade", 
-      arquivo: "adicional_de_insalubridade.pdf", 
-      detalhes: "Exemplo completo de inicial com juros e correção monetária." 
+    {
+      id: 2,
+      titulo: "adicional_de_insalubridade",
+      arquivo: "adicional_de_insalubridade.pdf",
+      detalhes: "Exemplo completo de inicial com juros e correção monetária."
     },
-    { 
-      id: 3, 
-      titulo: "ferias", 
-      arquivo: "ferias.pdf", 
-      detalhes: "Cálculo focado em férias vencidas com acréscimo de 1/3." 
+    {
+      id: 3,
+      titulo: "ferias",
+      arquivo: "ferias.pdf",
+      detalhes: "Cálculo focado em férias vencidas com acréscimo de 1/3."
     },
-    { 
-      id: 4, 
-      titulo: "verbas_rescisorias", 
-      arquivo: "verbas_rescisorias.pdf", 
-      detalhes: "Modelo de TRCT calculado com multas do Art. 467 e 477." 
+    {
+      id: 4,
+      titulo: "verbas_rescisorias",
+      arquivo: "verbas_rescisorias.pdf",
+      detalhes: "Modelo de TRCT calculado com multas do Art. 467 e 477."
     },
-    { 
-      id: 5, 
-      titulo: "13_salario", 
-      arquivo: "13_salario.pdf", 
-      detalhes: "Apuração de 13º salário proporcional com base em período de trabalho." 
+    {
+      id: 5,
+      titulo: "13_salario",
+      arquivo: "13_salario.pdf",
+      detalhes: "Apuração de 13º salário proporcional com base em período de trabalho."
     },
   ];
 
@@ -41,10 +41,10 @@ const CentralExemplos = () => {
         <p style={{ color: '#64748b', marginTop: '5px' }}>Baixe exemplos prontos para usar como base no seu PJE-Calc.</p>
       </div>
 
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '20px' 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '20px'
       }}>
         {exemplos.map((item) => (
           <div key={item.id} style={{
@@ -57,18 +57,19 @@ const CentralExemplos = () => {
             flexDirection: 'column',
             transition: 'transform 0.2s'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
           >
             <div style={{ fontSize: '2rem', marginBottom: '15px' }}>📄</div>
             <h3 style={{ color: '#1e293b', marginBottom: '10px', fontSize: '1.2rem' }}>{item.titulo}</h3>
             <p style={{ color: '#64748b', fontSize: '0.95rem', flexGrow: 1, marginBottom: '20px' }}>
               {item.detalhes}
             </p>
-            
-            <a 
-              href={`/exemplos/${item.arquivo}`} 
-              target="_blank" 
+
+            <a
+              // Altere a linha 70 para incluir o nome do seu repositório:
+              href={`/pje-calc-pro/exemplos/${item.arquivo}`}
+              target="_blank"
               rel="noopener noreferrer"
               style={{
                 backgroundColor: '#2563eb',
