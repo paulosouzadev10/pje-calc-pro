@@ -34,17 +34,24 @@ const Admin = () => {
     if (!error) carregarTodosOsCalculos(); // Atualiza a lista na hora
   };
   const alterarStatusOrcamento = async (id, novoStatus) => {
-    const { error } = await supabase
-      .from('calculos')
-      .update({ status_orcamento: novoStatus })
-      .eq('id', id);
+  const { error } = await supabase
+    .from('calculos')
+    .update({ status_orcamento: novoStatus })
+    .eq('id', id);
 
-    if (!error) carregarTodosOsCalculos(); // Recarrega a lista igual a função de cima
-  };
-
-  useEffect(() => {
-    carregarTodosOsCalculos();
-  }, []);
+  if (!error) {
+    // Atualiza a lista na tela imediatamente sem precisar esperar o banco
+    const novosCalculos = todosCalculos.map(c => 
+      c.id === id ? { ...c, status_orcamento: novoStatus } : c
+    );
+    setTodosCalculos(novosCalculos); 
+    
+    // Opcional: recarrega para garantir sincronia
+    carregarTodosOsCalculos(); 
+  } else {
+    alert("Erro ao atualizar no banco!");
+  }
+};
 
   return (
     <div style={{ padding: '40px', fontFamily: 'sans-serif', backgroundColor: '#f3f4f6', minHeight: '100vh' }}>
@@ -113,7 +120,7 @@ const Admin = () => {
               {/* COLUNA 4: ORÇAMENTO (O SELETOR) */}
               <td style={{ padding: '15px' }}>
                 <select
-                  value={c.status_orcamento || 'Orçamento Enviado'}
+                  value={c.status_orcamento || ''}
                   onChange={(e) => alterarStatusOrcamento(c.id, e.target.value)}
                   style={{
                     padding: '8px',
@@ -125,6 +132,7 @@ const Admin = () => {
                     width: '100%'
                   }}
                 >
+                  <option value="">Selecione o Status</option>
                   <option value="Orçamento Enviado">Orçamento Enviado</option>
                   <option value="Aguardando Aprovação">Aguardando Aprovação</option>
                   <option value="Orçamento Aprovado">Orçamento Aprovado</option>
