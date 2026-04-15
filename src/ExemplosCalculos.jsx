@@ -68,7 +68,7 @@ const CentralExemplos = () => {
 
             <a
               // Altere a linha 70 para incluir o nome do seu repositório:
-              href={`/pje-calc-pro/exemplos/${item.arquivo}`}
+              href={`/exemplos/${item.arquivo}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
